@@ -424,7 +424,7 @@ export default function ChordifyPlayer({ mode }: ChordifyPlayerProps) {
 
               {/* Chord aktif BESAR */}
               <div
-                key={activeSimplified + activeChordIdx}
+                key={(activeSimplified || "") + activeChordIdx}
                 className="chord-badge fade-in-up"
                 style={{
                   fontSize: showDiagram ? 64 : 96,

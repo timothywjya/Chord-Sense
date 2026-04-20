@@ -302,7 +302,7 @@ export async function analyzeAudioBuffer(
     
     // Compute FFT using Web Audio
     const analyserBuffer = audioContext.createBuffer(1, windowSize, sampleRate);
-    analyserBuffer.copyToChannel(windowed, 0);
+    analyserBuffer.copyToChannel(new Float32Array(windowed), 0);
     
     // Get frequency peaks using autocorrelation + simplified chromagram
     const chromagram = computeChromagram(windowed, sampleRate);
