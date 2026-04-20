@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Playfair Display', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+  
+  --color-bg: #07070d;
+  --color-surface: #0f0f1a;
+  --color-surface-raised: #14141f;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-amber: #f5a623;
+  --color-amber-dim: #c07d1a;
+  --color-amber-glow: rgba(245, 166, 35, 0.15);
+  --color-text: #e8e6e0;
+  --color-text-dim: #8a8578;
+  --color-accent: #4a9eff;
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: var(--color-amber-dim); border-radius: 3px; }
+
+/* Custom selection */
+::selection { background: rgba(245, 166, 35, 0.3); color: white; }
+
+/* Amber glow utilities */
+.amber-glow {
+  box-shadow: 0 0 30px rgba(245, 166, 35, 0.2), 0 0 60px rgba(245, 166, 35, 0.05);
+}
+
+.amber-text-glow {
+  text-shadow: 0 0 30px rgba(245, 166, 35, 0.5);
+}
+
+/* Animated gradient border */
+.gradient-border {
+  position: relative;
+  background: var(--color-surface);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(245, 166, 35, 0.5), transparent, rgba(74, 158, 255, 0.3));
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Chord badge */
+.chord-badge {
+  font-family: var(--font-display);
+  background: linear-gradient(135deg, var(--color-amber), var(--color-amber-dim));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Waveform animation bars */
+.wave-bar {
+  display: inline-block;
+  width: 3px;
+  background: var(--color-amber);
+  border-radius: 2px;
+  animation: waveform 1.2s ease-in-out infinite alternate;
+  transform-origin: bottom;
+}
+
+@keyframes waveform {
+  0% { height: 4px; opacity: 0.4; }
+  100% { height: 32px; opacity: 1; }
+}
+
+/* Pulse ring for active listening */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 0.3; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.pulse-active {
+  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(245, 166, 35, 0.1) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Fade in up */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Chord diagram strings */
+.guitar-string {
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1.5;
+}
+
+/* Progress bar */
+.progress-bar {
+  background: linear-gradient(90deg, var(--color-amber-dim), var(--color-amber));
+  transition: width 0.3s ease;
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(15, 15, 26, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-border);
+}
+
+/* Active chord highlight */
+@keyframes chord-flash {
+  0% { background: rgba(245, 166, 35, 0.3); }
+  100% { background: transparent; }
+}
+
+.chord-detected {
+  animation: chord-flash 0.5s ease-out forwards;
+}
